@@ -7,45 +7,29 @@ using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.IL2CPP;
 using HarmonyLib;
-using UnhollowerRuntimeLib;
+using UnhollowerRunti.lmeLib;
 using UnityEngine;
 
 [assembly: AssemblyFileVersionAttribute(TownOfHost.Main.PluginVersion)]
 [assembly: AssemblyInformationalVersionAttribute(TownOfHost.Main.PluginVersion)]
 namespace TownOfHost
 {
-    [BepInPlugin(PluginGuid, "Town Of Host", PluginVersion)]
+    [BepInPlugin(PluginGuid, "Crewmates Under Attack", PluginVersion)]
     [BepInIncompatibility("jp.ykundesu.supernewroles")]
     [BepInProcess("Among Us.exe")]
     public class Main : BasePlugin
     {
-        // == プログラム設定 / Program Config ==
-        // modの名前 / Mod Name (Default: Town Of Host)
-        public static readonly string ModName = "Town Of Host";
-        // modの色 / Mod Color (Default: #00bfff)
         public static readonly string ModColor = "#00bfff";
-        // 公開ルームを許可する / Allow Public Room (Default: true)
         public static readonly bool AllowPublicRoom = true;
-        // フォークID / ForkId (Default: OriginalTOH)
         public static readonly string ForkId = "OriginalTOH";
-        // Discordボタンを表示するか / Show Discord Button (Default: true)
         public static readonly bool ShowDiscordButton = true;
-        // Discordサーバーの招待リンク / Discord Server Invite URL (Default: https://discord.gg/W5ug6hXB9V)
         public static readonly string DiscordInviteUrl = "https://discord.gg/W5ug6hXB9V";
-        // ==========
-        public const string OriginalForkId = "OriginalTOH"; // Don't Change The Value. / この値を変更しないでください。
-        // == 認証設定 / Authentication Config ==
-        // デバッグキーの認証インスタンス
+        public const string OriginalForkId = "OriginalTOH";
         public static HashAuth DebugKeyAuth { get; private set; }
-        // デバッグキーのハッシュ値
         public const string DebugKeyHash = "c0fd562955ba56af3ae20d7ec9e64c664f0facecef4b3e366e109306adeae29d";
-        // デバッグキーのソルト
         public const string DebugKeySalt = "59687b";
-        // デバッグキーのコンフィグ入力
         public static ConfigEntry<string> DebugKeyInput { get; private set; }
 
-        // ==========
-        //Sorry for many Japanese comments.
         public const string PluginGuid = "com.emptybottle.townofhost";
         public const string PluginVersion = "4.1.2";
         public Harmony Harmony { get; } = new Harmony(PluginGuid);
@@ -95,7 +79,6 @@ namespace TownOfHost
         public static Dictionary<byte, float> AllPlayerKillCooldown = new();
 
         /// <summary>
-        /// 基本的に速度の代入は禁止.スピードは増減で対応してください.
         /// </summary>
         public static Dictionary<byte, float> AllPlayerSpeed = new();
         public const float MinSpeed = 0.0001f;
@@ -105,7 +88,6 @@ namespace TownOfHost
         public static Dictionary<(byte, byte), bool> isDoused = new();
         public static Dictionary<byte, (PlayerControl, float)> ArsonistTimer = new();
         /// <summary>
-        /// Key: ターゲットのPlayerId, Value: パペッティアのPlayerId
         /// </summary>
         public static Dictionary<byte, byte> PuppeteerList = new();
         public static Dictionary<byte, byte> SpeedBoostTarget = new();
@@ -345,6 +327,7 @@ namespace TownOfHost
         NotAssigned = 500,
         LastImpostor,
         Lovers,
+
         Workhorse,
     }
     //WinData
